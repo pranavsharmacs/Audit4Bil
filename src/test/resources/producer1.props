@@ -1,0 +1,6 @@
+afb.topic=B010-Audit4Bil-v1
+afb.environment=DEV
+afb.queueSize=100
+afb.numberOfThreads=10
+afb.isActive=true
+afb.useElastic=true

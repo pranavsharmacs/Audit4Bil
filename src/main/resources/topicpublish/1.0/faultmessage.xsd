@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://middleware.intra.bc/api/schema/fault"
+    xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://middleware.intra.bc/api/schema/fault"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:complexType name="FaultType">
+        <xsd:sequence>
+            <xsd:element name="faultCode" type="xsd:string">
+                <annotation>
+                    <documentation>This field is used to convey the
+                        fault code.
+                    </documentation>
+                </annotation>
+            </xsd:element>
+            <xsd:element name="faultDetailCodes" type="tns:FaultDetailCodesType">
+                <annotation>
+                    <documentation>This field is used to convey more
+                        details about the fault.
+                    </documentation>
+                </annotation>
+            </xsd:element>
+            <xsd:element name="faultIdentifier" type="xsd:string">
+                <annotation>
+                    <documentation>This field is a unique identifier to
+                        convey a single instance of a fault occurring.
+                        It must be meaningful to the part in the
+                        software infrastructure which reported the
+                        fault.
+                    </documentation>
+                </annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="FaultDetailCodesType">
+        <xsd:sequence>
+            <xsd:element name="faultDetailCode" type="xsd:string"
+                minOccurs="0" maxOccurs="100" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+</schema>

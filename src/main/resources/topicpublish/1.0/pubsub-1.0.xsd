@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by SDE/SDV/ITE
+	(Belgacom) -->
+<xsd:schema xmlns:pubsub="http://middleware.intra.bc/api/schema/pubsub" xmlns:fault="http://middleware.intra.bc/api/schema/fault" xmlns:tns="http://middleware.intra.bc/api/services/pubsub/push" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://middleware.intra.bc/api/services/pubsub/push" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xsd:import namespace="http://middleware.intra.bc/api/schema/pubsub" schemaLocation="pubsubmessage.xsd"/>
+	<xsd:import namespace="http://middleware.intra.bc/api/schema/fault" schemaLocation="faultmessage.xsd"/>
+	<xsd:element name="PublishRequest" type="tns:PublishRequestType"/>
+	<xsd:complexType name="PublishRequestType">
+		<xsd:sequence>
+			<xsd:element name="topicName" type="pubsub:TopicNameType">
+				<xsd:annotation>
+					<xsd:documentation>
+						The messages in the
+						request will be
+						published on a
+						topic with
+						this name.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="messages" type="pubsub:PublishMessagesType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PublishResponse" type="tns:PublishResponseType"/>
+	<xsd:complexType name="PublishResponseType">
+		<xsd:sequence>
+			<xsd:element name="messageIds" type="pubsub:messageIdType">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PublishFault" type="fault:FaultType"/>
+</xsd:schema>

@@ -1,0 +1,11 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:v4.context.vss.objects.bgc" >
+  <soapenv:Header>
+     <urn:Context version="4.0">
+        <urn:correlationId>1234556</urn:correlationId>
+        <urn:consumerApplicationId>appid</urn:consumerApplicationId>
+     </urn:Context>
+  </soapenv:Header>
+  <soapenv:Body>
+    <tns:PublishRequest xmlns:tns="http://middleware.intra.bc/api/services/pubsub/push" xmlns:pubsub="http://middleware.intra.bc/api/schema/pubsub"><tns:topicName>B010-Audit4bil-v1</tns:topicName><tns:messages><pubsub:message><pubsub:data>msg data</pubsub:data></pubsub:message><pubsub:message><pubsub:data>msg data</pubsub:data></pubsub:message></tns:messages></tns:PublishRequest>
+  </soapenv:Body>
+</soapenv:Envelope>

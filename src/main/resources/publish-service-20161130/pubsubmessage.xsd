@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://middleware.intra.bc/api/schema/pubsub"
+    xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://middleware.intra.bc/api/schema/pubsub"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+    <xsd:complexType name="PublishMessagesType">
+        <xsd:sequence>
+            <xsd:element name="message" type="tns:PublishMessageType"
+                maxOccurs="100" minOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PublishMessageType">
+        <xsd:sequence>
+            <xsd:element name="data" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The message payload. For XML
+                        requests,
+                        the value of this field must be
+                        wrapped
+                        in CDATA.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="attributes" type="tns:AttributeType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Optional attributes for this
+                        message.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SubscriptionMessageType">
+        <xsd:sequence>
+            <xsd:element name="ackId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        This ID can be used to
+                        acknowledge the
+                        received message.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="data" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The message payload. For XML
+                        requests,
+                        the value of this field must be
+                        wrapped
+                        in CDATA.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="attributes" type="tns:AttributeType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Optional attributes for this
+                        message.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="messageId" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        ID of this message, assigned by
+                        the
+                        server when the message is published.
+                        Guaranteed to be unique within the
+                        topic.
+
+                        This
+                        value may be read by a subscriber
+                        that receives a
+                        PubsubMessage via a pull
+                        call. It must not be
+                        populated by the
+                        publisher in a publish call.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="publishTime" type="dateTime">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The time at which the message was
+                        published, populated by the server when
+                        it
+                        receives the publish call.
+
+                        It must not be
+                        populated by the
+                        publisher in a publish call.
+
+                        A
+                        timestamp in RFC3339 UTC "Zulu"
+                        format, accurate
+                        to nanoseconds.
+                        Example:
+                        "2014-10-02T15:01:23.045123456Z".
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ReceivedMessageType">
+        <xsd:sequence>
+            <xsd:element name="message" type="tns:SubscriptionMessageType"
+                maxOccurs="100" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SubscriptionType">
+        <xsd:sequence>
+            <xsd:element name="subscriberName" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation> The subscriber for
+                        which
+                        messages
+                        should be pulled.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="topicName" type="tns:TopicNameType">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        The topic from which
+                        messages
+                        should be
+                        pulled.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="messageIdType">
+        <xsd:sequence>
+            <xsd:element name="messageId" type="xsd:string"
+                maxOccurs="100" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>The server-assigned
+                        ID of
+                        each
+                        published message, in the
+                        same order
+                        as the
+                        messages in the
+                        request. IDs are
+                        guaranteed to be
+                        unique within the topic.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AckIdsType">
+        <xsd:sequence>
+            <xsd:element name="ackId" type="xsd:string"
+                maxOccurs="100" minOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation>This ID can be used to
+                        acknowledge the received message.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AttributeType">
+        <xsd:sequence>
+            <xsd:element name="attribute" type="tns:KeyValueType"
+                maxOccurs="100" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="KeyValueType">
+        <xsd:sequence>
+            <xsd:element name="key" type="xsd:string"></xsd:element>
+            <xsd:element name="value" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="TopicNameType">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[a-zA-Z0-9]+\-[a-zA-Z0-9]+\.topic" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MaxMessagesType">
+        <xsd:restriction base="xsd:positiveInteger">
+            <xsd:minExclusive value="1"></xsd:minExclusive>
+            <xsd:maxExclusive value="100"></xsd:maxExclusive>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</schema>
