@@ -14,9 +14,9 @@ public class Constants {
 
 	//REST (ElasticSearch)
 	//UAT
-	public static final String URL_REST_UAT = "http://el4118.bc:9200/";
+	public static final String URL_REST_UAT = "http://el1796:9200/";
 	//PRO
-	public static final String URL_REST_PRO = "http://el4119.bc:9200/";
+	public static final String URL_REST_PRO = "http://el1796:9200/";
 
 	//SOAP
 	// UAT (mapped to ITT URL of pubsub)
