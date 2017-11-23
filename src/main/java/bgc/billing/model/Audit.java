@@ -381,7 +381,7 @@ public class Audit {
 	public enum Status {
 
 		SUCCESS("SUCCESS"), ERROR("ERROR"), WARNING("WARNING"), TIMEOUT(
-				"TIMEOUT");
+				"TIMEOUT"), IN_PROCESS("IN_PROCESS");
 		private final String value;
 		private final static Map<String, Audit.Status> CONSTANTS = new HashMap<String, Audit.Status>();
 
